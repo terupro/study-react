@@ -3,30 +3,31 @@ import Head from "next/head";
 import { Header } from "src/components/Header";
 import { Main } from "src/components/Main";
 import { Footer } from "src/components/Footer";
-import { useCallback, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const handleClick = useCallback((e) => {
-    e.preventDefault();
-  }, []);
+  const [count, setCount] = useState(0);
+
+  const handleClick = (e) => {
+    setCount((count) => count + 1);
+    setCount((count) => count + 1);
+  };
 
   useEffect(() => {
-    console.log("マウント");
     document.body.style.backgroundColor = "lightblue";
     return () => {
-      console.log("アンマウント");
       document.body.style.backgroundColor = "";
     };
   }, []);
+
   return (
     <div className={classes.container}>
       <Head>
         <title>Index Page</title>
       </Head>
       <Header />
-      <a href="/about" onClick={handleClick}>
-        ボタン
-      </a>
+      <h1>{count}</h1>
+      <button onClick={handleClick}>ボタン</button>
       <Main page="index" />
       <Footer />
     </div>
